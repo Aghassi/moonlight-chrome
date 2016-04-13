@@ -61,7 +61,7 @@ function moduleDidLoad() {
 // because the user can change the target host at any time, we continually have to check
 function updateTarget() {
     target = $('#GFEHostIPField').val();
-    if (target == null || target == "") {
+    if (target === null || target === "") {
         target = $("#selectHost option:selected").val();
     }
     
@@ -122,7 +122,7 @@ function pairPushed() {
         
         var hostSelect = $('#selectHost')[0];
         for(var i = 0; i < hostSelect.length; i++) { // check if we already have the host.
-            if (hostSelect.options[i].value == target) return;
+            if (hostSelect.options[i].value === target) return;
         }
 
         var opt = document.createElement('option');
@@ -162,7 +162,7 @@ function showAppsPushed() {
         });
         
         $("#selectGame").html($("#selectGame option").sort(function (a, b) {  // thanks, http://stackoverflow.com/a/7466196/3006365
-            return a.text.toUpperCase() == b.text.toUpperCase() ? 0 : a.text.toUpperCase() < b.text.toUpperCase() ? -1 : 1
+            return a.text.toUpperCase() === b.text.toUpperCase() ? 0 : a.text.toUpperCase() < b.text.toUpperCase() ? -1 : 1
         }));
         
         if (api.currentGame != 0)
@@ -190,7 +190,7 @@ function showAppsMode() {
 // in theory we should be able to cache the api.currentGame to prevent another call.
 function gameSelectUpdated() {
     var currentApp = $("#selectGame").val();
-    if(api.currentGame == parseInt(currentApp)) {
+    if(api.currentGame === parseInt(currentApp)) {
         $("#startGameButton").html('Resume Game');
     } else {
         $("#startGameButton").html('Run Game');
@@ -237,7 +237,7 @@ function startSelectedGame() {
         var rikey = '00000000000000000000000000000000';
         var rikeyid = 0;
 
-        if(api.currentGame == appID) // if user wants to launch the already-running app, then we resume it.
+        if(api.currentGame === appID) // if user wants to launch the already-running app, then we resume it.
             return api.resumeApp(rikey, rikeyid).then(function (ret) {
                 sendMessage('startRequest', [target, streamWidth, streamHeight, frameRate, bitrate.toString(), api.serverMajorVersion.toString()]);
             });

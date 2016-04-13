@@ -19,7 +19,7 @@ var isRelease = true;
 var common = (function() {
 
   function isHostToolchain(tool) {
-    return tool == 'win' || tool == 'linux' || tool == 'mac';
+    return tool === 'win' || tool === 'linux' || tool === 'mac';
   }
 
   /**
@@ -39,7 +39,7 @@ var common = (function() {
         mimetype = 'application/x-ppapi-release';
       else
         mimetype = 'application/x-ppapi-debug';
-    } else if (tool == 'pnacl') {
+    } else if (tool === 'pnacl') {
       mimetype = 'application/x-pnacl';
     }
     return mimetype;
@@ -216,7 +216,7 @@ var common = (function() {
    * This event listener is registered in attachDefaultListeners above.
    */
   function handleCrash(event) {
-    if (common.naclModule.exitStatus == -1) {
+    if (common.naclModule.exitStatus === -1) {
       updateStatus('CRASHED');
     } else {
       updateStatus('EXITED [' + common.naclModule.exitStatus + ']');
@@ -352,7 +352,7 @@ var common = (function() {
     if (!browserSupportsNaCl(tool)) {
       updateStatus(
           'Browser does not support NaCl (' + tool + '), or NaCl is disabled');
-    } else if (common.naclModule == null) {
+    } else if (common.naclModule === null) {
       updateStatus('Creating embed: ' + tool);
 
       // We use a non-zero sized embed to give Chrome space to place the bad

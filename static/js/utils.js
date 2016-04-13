@@ -1,6 +1,6 @@
 function guuid() {
 	return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-	    var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+	    var r = Math.random()*16|0, v = c === 'x' ? r : (r&0x3|0x8);
 	    return v.toString(16);
 	});
 }
@@ -52,7 +52,7 @@ NvHTTP.prototype = {
             return false;
         }
         
-        _self.paired = $root.find("PairStatus").text().trim() == 1;
+        _self.paired = $root.find("PairStatus").text().trim() === 1;
         _self.currentGame = parseInt($root.find("currentgame").text().trim(), 10);
         _self.serverMajorVersion = parseInt($root.find("appversion").text().trim().substring(0, 1), 10);
         
@@ -71,7 +71,7 @@ NvHTTP.prototype = {
             var retApp = null;
             
             list.some(function (app) {
-                if (app.id == appId) {
+                if (app.id === appId) {
                     retApp = app;
                     return true;
                 }
@@ -88,7 +88,7 @@ NvHTTP.prototype = {
             var retApp = null;
             
             list.some(function (app) {
-                if (app.title == appName) {
+                if (app.title === appName) {
                     retApp = app;
                     return true;
                 }
@@ -119,7 +119,7 @@ NvHTTP.prototype = {
                 appList.push({
                     title: appElements[i].getElementsByTagName("AppTitle")[0].innerHTML.trim(),
                     id: parseInt(appElements[i].getElementsByTagName("ID")[0].innerHTML.trim(), 10),
-                    running: (appElements[i].getElementsByTagName("IsRunning")[0].innerHTML.trim() == 1)
+                    running: (appElements[i].getElementsByTagName("IsRunning")[0].innerHTML.trim() === 1)
                 });
             }
             
@@ -185,7 +185,7 @@ NvHTTP.prototype = {
             return sendMessage('pair', [_self.serverMajorVersion, _self.address, randomNumber]).then(function (pairStatus) {
                 return sendMessage('openUrl', [_self._baseUrlHttps + '/pair?uniqueid=' + _self.clientUid + '&devicename=roth&updateState=1&phrase=pairchallenge']).then(function (ret) {
                     $xml = _self._parseXML(ret);
-                    _self.paired = $xml.find('paired').html() == "1";
+                    _self.paired = $xml.find('paired').html() === "1";
                     return _self.paired;
                 });
             });

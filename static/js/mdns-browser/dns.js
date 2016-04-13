@@ -104,7 +104,7 @@ DataConsumer.prototype.name = function() {
     var len = this.byte();
     if (!len) {
       break;
-    } else if (len == 0xc0) {
+    } else if (len === 0xc0) {
       // TODO: This indicates a pointer to another valid name inside the
       // DNSPacket, and is always a suffix: we're at the end of the name.
       // We should probably hold onto this value instead of discarding it.
@@ -183,14 +183,14 @@ DNSPacket.prototype.push = function(section, record) {
 DNSPacket.prototype.each = function(section) {
   var filter = false;
   var call;
-  if (arguments.length == 2) {
+  if (arguments.length === 2) {
     call = arguments[1];
   } else {
     filter = arguments[1];
     call = arguments[2];
   }
   this.data_[section].forEach(function(rec) {
-    if (!filter || rec.type == filter) {
+    if (!filter || rec.type === filter) {
       call(rec);
     }
   });
@@ -234,7 +234,7 @@ var DNSRecord = function(name, type, cl, opt_ttl, opt_data) {
   this.type = type;
   this.cl = cl;
 
-  this.isQD = (arguments.length == 3);
+  this.isQD = (arguments.length === 3);
   if (!this.isQD) {
     this.ttl = opt_ttl;
     this.data_ = opt_data;

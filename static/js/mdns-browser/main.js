@@ -126,7 +126,7 @@ ServiceFinder.prototype.ips = function(opt_service) {
  */
 ServiceFinder.prototype.onReceive_ = function(info) {
   var getDefault_ = function(o, k, def) {
-    (k in o) || false == (o[k] = def);
+    (k in o) || false === (o[k] = def);
     return o[k];
   };
 
